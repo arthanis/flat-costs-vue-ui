@@ -1,17 +1,10 @@
 <template>
-  <div>
-    <div class="container pt-5">
-      <h1>Flat costs vue ui</h1>
-    </div>
+  <div id="nav">
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
   </div>
+  <router-view/>
 </template>
-
-<script>
-export default {
-  name: 'App',
-  components: {},
-};
-</script>
 
 <style lang='scss'>
   @import 'assets/scss/app';

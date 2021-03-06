@@ -1,5 +1,7 @@
 # flat-costs-vue-ui
 
+`Vue3` | `VueRouter4` | `Bootstrap5`
+
 ## Project setup
 ```
 yarn install
