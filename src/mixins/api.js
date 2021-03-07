@@ -9,10 +9,18 @@ export default {
       return this.axios.get(url);
     },
     postData(url, data) {
-      return { url, data };
+      this.axios.post(url, data)
+        .then()
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    updateData() {
-
+    updateData(url, data) {
+      this.axios.put(url, data)
+        .then()
+        .catch((error) => {
+          console.log(error);
+        });
     },
     deleteData(url) {
       return this.axios.delete(url);
@@ -27,6 +35,9 @@ export default {
       return this.getData(`${this.baseURL}/${entity}`)
         .then((res) => {
           this[entity] = res.data;
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
     getColumns(data) {

@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="d-flex justify-content-end mb-4">
+      <router-link :to="{ path: `/${entity}/add` }" class="btn btn-primary">
+        Add new
+      </router-link>
+    </div>
+
     <table class="table table-bordered table-striped" v-if="data.length">
       <thead>
         <th
@@ -26,13 +32,18 @@
           <td class="col col-actions">
             <div class="d-flex">
               <button
-                class="btn btn-primary"
+                class="btn btn-outline-primary"
                 @click="onEdit(rowData.id)"
                 :id="`${entity}_${rowData.id}`"
               >
                 Edit
               </button>
-              <button class="btn btn-danger ms-2" @click="onDelete(rowData.id)">Delete</button>
+              <button
+                class="btn btn-danger ms-2"
+                @click="onDelete(rowData.id)"
+              >
+                Delete
+              </button>
             </div>
           </td>
         </tr>
