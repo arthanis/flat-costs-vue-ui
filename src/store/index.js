@@ -11,7 +11,7 @@ export default createStore({
   },
   mutations: {
     setConfig(state, config) {
-      state.columns = config;
+      state.config = config;
     },
     setCategories(state, categories) {
       state.categories = categories;
