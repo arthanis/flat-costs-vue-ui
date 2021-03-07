@@ -1,11 +1,9 @@
 <template>
   <div>
-    <h1 class="mb-5">Categories</h1>
-
     <DataTable
       :data="categories"
       :columns="getColumns(categories)"
-      @updateData="getCategories"
+      @updateData="getEntityData"
     />
   </div>
 </template>
@@ -22,19 +20,12 @@ export default {
   },
   data() {
     return {
+      entity: 'categories',
       categories: [],
     };
   },
   mounted() {
-    this.getCategories();
-  },
-  methods: {
-    getCategories() {
-      this.getData(`${this.baseURL}/categories`)
-        .then((res) => {
-          this.categories = res.data;
-        });
-    },
+    this.getEntityData();
   },
 };
 </script>

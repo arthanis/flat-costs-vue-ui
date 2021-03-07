@@ -3,7 +3,8 @@
     <Header />
 
     <main class="container py-5">
-      <router-view/>
+      <h1 class="mb-5">{{ getTitle }}</h1>
+      <router-view />
     </main>
   </div>
 </template>
@@ -15,6 +16,11 @@ export default {
   name: 'App',
   components: {
     Header,
+  },
+  computed: {
+    getTitle() {
+      return this.$route.meta.title;
+    },
   },
 };
 </script>

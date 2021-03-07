@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <table class="table table-bordered table-striped" v-if="data.length">
       <thead>
         <th
@@ -30,7 +29,6 @@
                 class="btn btn-primary"
                 @click="onEdit(rowData.id)"
                 :id="`${entity}_${rowData.id}`"
-                :key="`${entity}_${rowData.id}`"
               >
                 Edit
               </button>

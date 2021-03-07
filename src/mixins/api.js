@@ -14,6 +14,13 @@ export default {
     deleteData(url) {
       return this.axios.delete(url);
     },
+    getEntityData() {
+      this[this.entity] = [];
+      this.getData(`${this.baseURL}/${this.entity}`)
+        .then((res) => {
+          this[this.entity] = res.data;
+        });
+    },
     getColumns(data) {
       if (!data.length) {
         return [];
