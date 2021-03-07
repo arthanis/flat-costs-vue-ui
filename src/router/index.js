@@ -4,37 +4,37 @@ import Home from '../views/Home.vue';
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home,
   },
   {
     path: '/categories',
-    name: 'Categories',
+    name: 'categories',
     component: () => import('../views/Categories.vue'),
   },
   {
     path: '/categories/add',
-    name: 'Add category',
+    name: 'add_category',
     component: () => import('../views/Form.vue'),
   },
   {
     path: '/categories/edit/:id',
-    name: 'Edit category',
+    name: 'edit_category',
     component: () => import('../views/Form.vue'),
   },
   {
     path: '/costs',
-    name: 'Costs',
+    name: 'costs',
     component: () => import('../views/Costs.vue'),
   },
   {
     path: '/costs/add',
-    name: 'Add cost',
+    name: 'add_cost',
     component: () => import('../views/Form.vue'),
   },
   {
     path: '/costs/edit/:id',
-    name: 'Edit cost',
+    name: 'edit_cost',
     component: () => import('../views/Form.vue'),
   },
 ];

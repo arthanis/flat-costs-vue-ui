@@ -1,0 +1,14 @@
+.table {
+    .col {
+        padding: $table-cell-padding-y $table-cell-padding-x;
+        vertical-align: middle;
+
+        &.col-actions {
+            width: 15%;
+        }
+
+        &::first-letter {
+            text-transform: uppercase;
+        }
+    }
+}

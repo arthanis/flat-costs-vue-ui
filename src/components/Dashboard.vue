@@ -36,26 +36,24 @@
 </template>
 
 <script>
+import API from '@/mixins/api';
+
 export default {
   name: 'Dashboard',
+  mixins: [API],
   data() {
     return {
       categories: [],
       costs: [],
     };
   },
-  setup() {
-    console.log('asdf');
-  },
   mounted() {
-    const BASE_URL = 'http://localhost:4000/api';
-
-    this.axios.get(`${BASE_URL}/categories`)
+    this.getData(`${this.baseURL}/categories`)
       .then((res) => {
         this.categories = res.data;
       });
 
-    this.axios.get(`${BASE_URL}/costs`)
+    this.axios.get(`${this.baseURL}/costs`)
       .then((res) => {
         this.costs = res.data;
       });
