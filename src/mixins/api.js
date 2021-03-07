@@ -11,14 +11,22 @@ export default {
     postData(url, data) {
       return { url, data };
     },
+    updateData() {
+
+    },
     deleteData(url) {
       return this.axios.delete(url);
     },
-    getEntityData() {
-      this[this.entity] = [];
-      this.getData(`${this.baseURL}/${this.entity}`)
+    getEntityData(entity, cached) {
+      if (cached) {
+        return this.$store.getters[entity];
+      }
+
+      this[entity] = [];
+
+      return this.getData(`${this.baseURL}/${entity}`)
         .then((res) => {
-          this[this.entity] = res.data;
+          this[entity] = res.data;
         });
     },
     getColumns(data) {

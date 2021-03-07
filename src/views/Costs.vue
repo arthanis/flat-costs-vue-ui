@@ -3,7 +3,7 @@
     <DataTable
       :data="costs"
       :columns="getColumns(costs)"
-      @updateData="getEntityData"
+      @updateData="getEntityData(entity, false)"
     />
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
     };
   },
   mounted() {
-    this.getEntityData();
+    this.getEntityData(this.entity, false);
   },
 };
 </script>
