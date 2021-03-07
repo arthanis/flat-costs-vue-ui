@@ -1,6 +1,16 @@
 # flat-costs-vue-ui
 
+## used technologies
+
 `Vue3` | `VueRouter4` | `Bootstrap5`
+
+## todo
+
+- alert message (success, error)
+- when update data (categories, update vuex as well)
+- add loaders
+- enhance UI (pimp!)
+
 
 ## Project setup
 ```
