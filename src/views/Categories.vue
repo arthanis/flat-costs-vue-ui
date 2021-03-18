@@ -3,7 +3,7 @@
     <DataTable
       :data="categories"
       :columns="getColumns(categories)"
-      @updateData="getEntityData(entity, false)"
+      @updateData="getCategories(entity)"
     />
   </div>
 </template>
@@ -26,6 +26,15 @@ export default {
   },
   mounted() {
     this.getEntityData(this.entity, false);
+  },
+  methods: {
+    getCategories(entity) {
+      this.getData(`${this.baseURL}/${entity}`)
+        .then((res) => {
+          this.categories = res.data;
+          this.$store.commit('setCategories', res.data);
+        });
+    },
   },
 };
 </script>

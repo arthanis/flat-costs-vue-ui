@@ -87,13 +87,20 @@ export default {
     }
   },
   methods: {
-    onSubmit(event) {
+    async onSubmit(event) {
       if (this.isAddPage) {
-        this.postData(this.url, this.formData);
+        await this.postData(this.url, this.formData);
         event.target.reset();
         this.formData = {};
       } else {
-        this.updateData(this.url, this.formData);
+        await this.updateData(this.url, this.formData);
+      }
+
+      if (this.entity === 'categories') {
+        await this.getData(`${this.baseURL}/${this.entity}`)
+          .then((res) => {
+            this.$store.commit('setCategories', res.data);
+          });
       }
     },
   },

@@ -9,14 +9,14 @@ export default {
       return this.axios.get(url);
     },
     postData(url, data) {
-      this.axios.post(url, data)
+      return this.axios.post(url, data)
         .then()
         .catch((error) => {
           console.log(error);
         });
     },
     updateData(url, data) {
-      this.axios.put(url, data)
+      return this.axios.put(url, data)
         .then()
         .catch((error) => {
           console.log(error);

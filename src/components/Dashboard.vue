@@ -36,23 +36,21 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import API from '@/mixins/api';
 
 export default {
   name: 'Dashboard',
   mixins: [API],
+  computed: {
+    ...mapGetters(['categories']),
+  },
   data() {
     return {
-      categories: [],
       costs: [],
     };
   },
   mounted() {
-    this.getData(`${this.baseURL}/categories`)
-      .then((res) => {
-        this.categories = res.data;
-      });
-
     this.axios.get(`${this.baseURL}/costs`)
       .then((res) => {
         this.costs = res.data;
