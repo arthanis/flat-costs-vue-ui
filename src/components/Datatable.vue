@@ -8,41 +8,39 @@
       </router-link>
     </div>
 
-    <table class="table table-bordered table-striped" v-if="data.length">
+    <table v-if="data.length" class="table table-bordered table-striped">
       <thead>
         <th
           v-for="(column, index) in columns"
           :key="index"
-          :class="`col col-${column}`"
-          >
+          :class="`col col-${column}`">
           {{ getColumnName(column) }}
         </th>
-        <th class="col col-actions">Actions</th>
+        <th class="col col-actions">
+          Actions
+        </th>
       </thead>
       <tbody>
         <tr
           v-for="(rowData, rowIndex) in data"
-          :key="rowIndex"
-        >
+          :key="rowIndex">
           <td
-            :class="`col col-${column}`"
             v-for="(column, columnIndex) in columns"
             :key="columnIndex"
-          >
+            :class="`col col-${column}`">
             <span v-if="column?.options?.belongsTo">
               {{ getEntityItemNameById(column?.options?.belongsTo, rowData[column.name]) }}
             </span>
             <span v-else>
-              {{ rowData[column.name]}}
+              {{ rowData[column.name] }}
             </span>
           </td>
           <td class="col col-actions">
             <div class="d-flex">
               <button
-                class="btn btn-outline-primary"
-                @click="onEdit(rowData.id)"
                 :id="`${entity}_${rowData.id}`"
-              >
+                class="btn btn-outline-primary"
+                @click="onEdit(rowData.id)">
                 Edit
               </button>
               <button
@@ -57,7 +55,9 @@
       </tbody>
     </table>
     <div v-else>
-      <div class="alert alert-info">There is no data in {{ entity}}(s).</div>
+      <div class="alert alert-info">
+        There is no data in {{ entity }}(s).
+      </div>
     </div>
   </div>
 </template>
@@ -71,21 +71,31 @@ import Alert from '@/components/Alert.vue';
 export default {
   name: 'Datatable',
   components: { Alert },
+  mixins: [API, EntitiesMixin],
   props: {
-    data: Array,
-    columns: Array,
-  },
-  computed: {
-    ...mapGetters(['config']),
+    data: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    columns: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
   },
   emits: ['updateData'],
-  mixins: [API, EntitiesMixin],
   data() {
     return {
       entities: [],
       entity: this.$route.name.toLowerCase(),
 
     };
+  },
+  computed: {
+    ...mapGetters(['config']),
   },
   mounted() {
     this.setDependentEntities();

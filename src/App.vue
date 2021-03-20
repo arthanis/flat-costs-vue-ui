@@ -2,8 +2,10 @@
   <div>
     <Header />
 
-    <main class="container py-5" v-if="isInitialized">
-      <h1 class="mb-4">{{ getTitle }}</h1>
+    <main v-if="isInitialized" class="container py-5">
+      <h1 class="mb-4">
+        {{ getTitle }}
+      </h1>
       <router-view />
     </main>
   </div>
@@ -19,15 +21,15 @@ export default {
     Header,
   },
   mixins: [API],
-  computed: {
-    getTitle() {
-      return this.$route.meta.title;
-    },
-  },
   data() {
     return {
       isInitialized: false,
     };
+  },
+  computed: {
+    getTitle() {
+      return this.$route.meta.title;
+    },
   },
   async created() {
     await this.getData(`${this.baseURL}/config`)

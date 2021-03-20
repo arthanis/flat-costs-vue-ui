@@ -1,22 +1,30 @@
 <template>
   <div>
-    <h4 class="mb-3">Categories</h4>
+    <h4 class="mb-3">
+      Categories
+    </h4>
 
-    <table class="table table-bordered table-striped" v-if="categories">
+    <table v-if="categories" class="table table-bordered table-striped">
       <thead>
         <th>ID</th>
         <th>Name</th>
       </thead>
       <tbody>
         <tr v-for="(category, index) in categories" :key="index">
-        <td>{{ category.id }}</td>
-        <td>{{ category.name }}</td>
-      </tr>
+          <td>
+            {{ category.id }}
+          </td>
+          <td>
+            {{ category.name }}
+          </td>
+        </tr>
       </tbody>
     </table>
 
-    <h4 class="mb-3">Costs</h4>
-    <table class="table table-bordered table-striped" v-if="costs">
+    <h4 class="mb-3">
+      Costs
+    </h4>
+    <table v-if="costs" class="table table-bordered table-striped">
       <thead>
         <th>ID</th>
         <th>Category</th>
@@ -42,14 +50,14 @@ import API from '@/mixins/api';
 export default {
   name: 'Dashboard',
   mixins: [API],
-  computed: {
-    ...mapGetters(['config']),
-  },
   data() {
     return {
       costs: [],
       categories: [],
     };
+  },
+  computed: {
+    ...mapGetters(['config']),
   },
   mounted() {
     const { entities } = this.$store.getters.config;

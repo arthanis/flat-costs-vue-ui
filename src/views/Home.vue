@@ -8,7 +8,7 @@
 import Dashboard from '@/components/Dashboard.vue';
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     Dashboard,
   },

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="alert alert-success" v-if="messages.success">
+    <div v-if="messages.success" class="alert alert-success">
       {{ messages.success }}
     </div>
 
-    <div class="alert alert-danger" v-if="messages.error">
+    <div v-if="messages.error" class="alert alert-danger">
       {{ messages.error }}
     </div>
   </div>
@@ -16,6 +16,9 @@ export default {
   props: {
     messages: {
       type: Object,
+      default() {
+        return {};
+      },
     },
   },
 };

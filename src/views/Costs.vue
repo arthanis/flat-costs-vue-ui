@@ -15,10 +15,10 @@ import DataTable from '@/components/Datatable.vue';
 
 export default {
   name: 'Costs',
-  mixins: [API, EntitiesMixin],
   components: {
     DataTable,
   },
+  mixins: [API, EntitiesMixin],
   data() {
     return {
       entity: 'costs',
