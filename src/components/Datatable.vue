@@ -31,6 +31,9 @@
             <span v-if="column?.options?.belongsTo">
               {{ getEntityItemNameById(column?.options?.belongsTo, rowData[column.name]) }}
             </span>
+            <span v-else-if="column.name === 'value'">
+              {{ currency(rowData[column.name]) }}
+            </span>
             <span v-else>
               {{ rowData[column.name] }}
             </span>
@@ -109,6 +112,17 @@ export default {
         .then(() => {
           this.$emit('updateData');
         });
+    },
+    currency(value) {
+      const locale = navigator.languages ? navigator.languages[0] : 'en-US';
+      const currency = process.env.VUE_APP_COST_CURRENCY;
+      const options = {
+        style: 'currency',
+        currency,
+        minimumFractionDigits: 0,
+      };
+
+      return Intl.NumberFormat(locale, options).format(value);
     },
   },
 };

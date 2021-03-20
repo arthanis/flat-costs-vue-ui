@@ -45,6 +45,10 @@ export default {
 
       const entityItem = this[entity].find((elem) => elem.id === id);
 
+      if (!entityItem) {
+        return '';
+      }
+
       return entityItem.name;
     },
   },
