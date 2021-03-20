@@ -33,14 +33,8 @@ export default {
     await this.getData(`${this.baseURL}/config`)
       .then((res) => {
         this.$store.commit('setConfig', res.data);
+        this.isInitialized = true;
       });
-
-    await this.getData(`${this.baseURL}/categories`)
-      .then((res) => {
-        this.$store.commit('setCategories', res.data);
-      });
-
-    this.isInitialized = true;
   },
 };
 </script>
