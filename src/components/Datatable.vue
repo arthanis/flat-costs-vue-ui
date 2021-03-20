@@ -1,5 +1,7 @@
 <template>
   <div>
+    <alert :messages="messages" />
+
     <div class="d-flex justify-content-end mb-4">
       <router-link :to="{ path: `/${entity}/add` }" class="btn btn-primary">
         Add new
@@ -57,9 +59,11 @@
 
 <script>
 import API from '@/mixins/api';
+import Alert from '@/components/Alert.vue';
 
 export default {
   name: 'Datatable',
+  components: { Alert },
   props: {
     data: Array,
     columns: Array,

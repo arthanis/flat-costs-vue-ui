@@ -1,14 +1,15 @@
 <template>
   <div>
-    <div class="row">
+    <alert :messages="messages" />
+
+    <div class="row pt-5" v-if="isInitialized">
       <div class="col-lg-8 offset-lg-2">
         <form
-          v-if="config.columns"
+          v-if="config.entities[entity].columns"
           class="form"
           @submit.prevent="onSubmit"
         >
-
-          <div class="mb-3" v-for="(column, index) in config.columns[entity]" :key="index">
+          <div class="mb-3" v-for="(column, index) in config.entities[entity].columns" :key="index">
             <div class="row">
               <label
                 class="col-sm-3 col-form-label"
@@ -23,13 +24,19 @@
                   v-model="formData[column.name]"
                 >
                   <option
-                    v-for="(option, optionIndex) in getEntityData(column.options.belongsTo, true)"
+                    v-for="(option, optionIndex) in getDependentEntity(column?.options?.belongsTo)"
                     :key="optionIndex"
                     :value="option.id"
                   >
                     {{ option.name }}
                   </option>
                 </select>
+                <date-picker
+                  v-else-if="column.type === 'date'"
+                  v-model="formData[column.name]"
+                  valueType="format"
+                  input-class="form-control">
+                </date-picker>
                 <input
                   v-else
                   :placeholder="column.name"
@@ -55,14 +62,18 @@
 </template>
 
 <script>
+import DatePicker from 'vue2-datepicker';
 import { mapGetters } from 'vuex';
 import API from '@/mixins/api';
+import EntitiesMixin from '@/mixins/entities';
+import Alert from '@/components/Alert.vue';
 
 export default {
   name: 'Form',
-  mixins: [API],
+  components: { DatePicker, Alert },
+  mixins: [API, EntitiesMixin],
   computed: {
-    ...mapGetters(['config', 'categories']),
+    ...mapGetters(['config']),
     entity() {
       return this.$route.path.split('/')[1];
     },
@@ -76,9 +87,28 @@ export default {
     return {
       isAddPage: this.$route.name.includes('add'),
       formData: {},
+      entities: [],
+      isInitialized: false,
     };
   },
   mounted() {
+    const { columns } = this.config.entities[this.entity];
+
+    this.entities = [];
+
+    columns.forEach((column) => {
+      if (column?.options?.belongsTo) {
+        const dependentEntity = column.options.belongsTo;
+
+        this.fetchEntity(dependentEntity)
+          .then(() => {
+            this.entities.push({ [dependentEntity]: this[dependentEntity] });
+          });
+      }
+    });
+
+    this.isInitialized = true;
+
     if (!this.isAddPage) {
       this.getData(this.url)
         .then((res) => {
@@ -90,18 +120,21 @@ export default {
     async onSubmit(event) {
       if (this.isAddPage) {
         await this.postData(this.url, this.formData);
+
         event.target.reset();
         this.formData = {};
       } else {
         await this.updateData(this.url, this.formData);
       }
+    },
+    getDependentEntity(entityName) {
+      const result = this.entities.find((entity) => entityName === Object.keys(entity)[0]);
 
-      if (this.entity === 'categories') {
-        await this.getData(`${this.baseURL}/${this.entity}`)
-          .then((res) => {
-            this.$store.commit('setCategories', res.data);
-          });
+      if (!result) {
+        return [];
       }
+
+      return result[entityName];
     },
   },
 };

@@ -3,18 +3,19 @@
     <DataTable
       :data="categories"
       :columns="getColumns(categories)"
-      @updateData="getEntityData(entity)"
+      @updateData="fetchEntity(entity)"
     />
   </div>
 </template>
 
 <script>
 import API from '@/mixins/api';
+import EntitiesMixin from '@/mixins/entities';
 import DataTable from '@/components/Datatable.vue';
 
 export default {
   name: 'Categories',
-  mixins: [API],
+  mixins: [API, EntitiesMixin],
   components: {
     DataTable,
   },
@@ -25,7 +26,7 @@ export default {
     };
   },
   mounted() {
-    this.getEntityData(this.entity);
+    this.fetchEntity(this.entity);
   },
 };
 </script>

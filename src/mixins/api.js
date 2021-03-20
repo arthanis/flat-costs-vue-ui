@@ -2,6 +2,10 @@ export default {
   data() {
     return {
       baseURL: process.env.VUE_APP_API_URL,
+      messages: {
+        success: null,
+        error: null,
+      },
     };
   },
   methods: {
@@ -10,26 +14,32 @@ export default {
     },
     postData(url, data) {
       return this.axios.post(url, data)
-        .then()
-        .catch((error) => {
-          console.log(error);
+        .then((res) => {
+          this.handleSuccessMessage(res);
+        })
+        .catch((err) => {
+          this.handleErrorMessage(err);
         });
     },
     updateData(url, data) {
       return this.axios.put(url, data)
-        .then()
-        .catch((error) => {
-          console.log(error);
+        .then((res) => {
+          this.handleSuccessMessage(res);
+        })
+        .catch((err) => {
+          this.handleErrorMessage(err);
         });
     },
     deleteData(url) {
-      return this.axios.delete(url);
+      return this.axios.delete(url)
+        .then((res) => {
+          this.handleSuccessMessage(res);
+        })
+        .catch((err) => {
+          this.handleErrorMessage(err);
+        });
     },
-    getEntityData(entity, cached) {
-      if (cached) {
-        return this.$store.getters[entity];
-      }
-
+    fetchEntity(entity) {
       this[entity] = [];
 
       return this.getData(`${this.baseURL}/${entity}`)
@@ -40,12 +50,16 @@ export default {
           console.log(error);
         });
     },
-    getColumns(data) {
-      if (!data.length) {
-        return [];
-      }
+    handleSuccessMessage(res) {
+      this.messages.error = null;
+      this.messages.success = res.data.message || 'Operation completed successfully ';
+    },
+    handleErrorMessage(err) {
+      const { request } = err;
+      const response = JSON.parse(request.response);
 
-      return Object.keys(data[0]).filter((key) => !['createdAt', 'updatedAt'].includes(key));
+      this.messages.success = null;
+      this.messages.error = response.message;
     },
   },
 };
