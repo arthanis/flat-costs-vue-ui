@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="mb-5">Dashboard</h1>
     <h4 class="mb-3">Categories</h4>
+
     <table class="table table-bordered table-striped" v-if="categories">
       <thead>
         <th>ID</th>
@@ -25,11 +25,11 @@
       </thead>
       <tbody>
         <tr v-for="(cost, index) in costs" :key="index">
-        <td>{{ cost.id }}</td>
-        <td>{{ getCategoryNameById(cost.categoryId) }}</td>
-        <td>{{ cost.date }}</td>
-        <td>{{ cost.value }}</td>
-      </tr>
+          <td>{{ cost.id }}</td>
+          <td>{{ getCategoryNameById(cost.categoryId) }}</td>
+          <td>{{ cost.date }}</td>
+          <td>{{ cost.value }}</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -43,18 +43,23 @@ export default {
   name: 'Dashboard',
   mixins: [API],
   computed: {
-    ...mapGetters(['categories']),
+    ...mapGetters(['config']),
   },
   data() {
     return {
       costs: [],
+      categories: [],
     };
   },
   mounted() {
-    this.axios.get(`${this.baseURL}/costs`)
-      .then((res) => {
-        this.costs = res.data;
-      });
+    const { entities } = this.$store.getters.config;
+
+    Object.keys(entities).forEach((entity) => {
+      this.axios.get(`${this.baseURL}/${entity}`)
+        .then((res) => {
+          this[entity] = res.data;
+        });
+    });
   },
   methods: {
     getCategoryNameById(id) {
