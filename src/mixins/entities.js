@@ -1,8 +1,6 @@
 export default {
   methods: {
     getEntity(entity) {
-      console.log(entity, this[entity]);
-
       return this[entity];
     },
     getColumns(data) {
