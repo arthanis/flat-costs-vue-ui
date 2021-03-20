@@ -15,7 +15,7 @@
           :key="index"
           :class="`col col-${column}`"
           >
-          {{ column }}
+          {{ getColumnName(column) }}
         </th>
         <th class="col col-actions">Actions</th>
       </thead>
@@ -29,7 +29,12 @@
             v-for="(column, columnIndex) in columns"
             :key="columnIndex"
           >
-            {{ rowData[column]}}
+            <span v-if="column?.options?.belongsTo">
+              {{ getEntityItemNameById(column?.options?.belongsTo, rowData[column.name]) }}
+            </span>
+            <span v-else>
+              {{ rowData[column.name]}}
+            </span>
           </td>
           <td class="col col-actions">
             <div class="d-flex">
@@ -58,7 +63,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import API from '@/mixins/api';
+import EntitiesMixin from '@/mixins/entities';
 import Alert from '@/components/Alert.vue';
 
 export default {
@@ -68,12 +75,20 @@ export default {
     data: Array,
     columns: Array,
   },
+  computed: {
+    ...mapGetters(['config']),
+  },
   emits: ['updateData'],
-  mixins: [API],
+  mixins: [API, EntitiesMixin],
   data() {
     return {
+      entities: [],
       entity: this.$route.name.toLowerCase(),
+
     };
+  },
+  mounted() {
+    this.setDependentEntities();
   },
   methods: {
     onEdit(id) {

@@ -2,7 +2,7 @@
   <div>
     <DataTable
       :data="costs"
-      :columns="getColumns(costs)"
+      :columns="getColumns(entity)"
       @updateData="fetchEntity(entity)"
     />
   </div>

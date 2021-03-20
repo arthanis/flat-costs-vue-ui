@@ -13,8 +13,7 @@
             <div class="row">
               <label
                 class="col-sm-3 col-form-label"
-                :for="`${column.name}_${index}`"
-              >
+                :for="`${column.name}_${index}`">
                 {{ (column?.options?.belongsTo) ? column.options.belongsToName : column.name }}
               </label>
               <div class="col-sm-9">
@@ -22,12 +21,11 @@
                   v-if="column.type === 'select'"
                   class="form-select"
                   v-model="formData[column.name]"
-                >
+                  required>
                   <option
                     v-for="(option, optionIndex) in getDependentEntity(column?.options?.belongsTo)"
                     :key="optionIndex"
-                    :value="option.id"
-                  >
+                    :value="option.id">
                     {{ option.name }}
                   </option>
                 </select>
@@ -44,7 +42,7 @@
                   :id="`${column.name}_${index}`"
                   class="form-control"
                   v-model="formData[column.name]"
-                  />
+                  required />
               </div>
             </div>
           </div>
@@ -92,21 +90,7 @@ export default {
     };
   },
   mounted() {
-    const { columns } = this.config.entities[this.entity];
-
-    this.entities = [];
-
-    columns.forEach((column) => {
-      if (column?.options?.belongsTo) {
-        const dependentEntity = column.options.belongsTo;
-
-        this.fetchEntity(dependentEntity)
-          .then(() => {
-            this.entities.push({ [dependentEntity]: this[dependentEntity] });
-          });
-      }
-    });
-
+    this.setDependentEntities();
     this.isInitialized = true;
 
     if (!this.isAddPage) {
@@ -126,15 +110,6 @@ export default {
       } else {
         await this.updateData(this.url, this.formData);
       }
-    },
-    getDependentEntity(entityName) {
-      const result = this.entities.find((entity) => entityName === Object.keys(entity)[0]);
-
-      if (!result) {
-        return [];
-      }
-
-      return result[entityName];
     },
   },
 };
