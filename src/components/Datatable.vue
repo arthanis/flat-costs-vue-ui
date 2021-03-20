@@ -2,7 +2,7 @@
   <div>
     <alert :messages="messages" />
 
-    <div class="d-flex justify-content-end mb-4">
+    <div v-if="actions" class="d-flex justify-content-end mb-4">
       <router-link :to="{ path: `/${entity}/add` }" class="btn btn-primary">
         Add new
       </router-link>
@@ -16,7 +16,7 @@
           :class="`col col-${column}`">
           {{ getColumnName(column) }}
         </th>
-        <th class="col col-actions">
+        <th v-if="actions" class="col col-actions">
           Actions
         </th>
       </thead>
@@ -38,7 +38,7 @@
               {{ rowData[column.name] }}
             </span>
           </td>
-          <td class="col col-actions">
+          <td v-if="actions" class="col col-actions">
             <div class="d-flex">
               <button
                 :id="`${entity}_${rowData.id}`"
@@ -82,19 +82,25 @@ export default {
         return [];
       },
     },
+    entity: {
+      type: String,
+      default: '',
+    },
     columns: {
       type: Array,
       default() {
         return [];
       },
     },
+    actions: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['updateData'],
   data() {
     return {
       entities: [],
-      entity: this.$route.name.toLowerCase(),
-
     };
   },
   computed: {

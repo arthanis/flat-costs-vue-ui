@@ -1,4 +1,9 @@
 export default {
+  data() {
+    return {
+      categories: [],
+    };
+  },
   methods: {
     getEntity(entity) {
       return this[entity];

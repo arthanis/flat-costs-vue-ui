@@ -3,6 +3,7 @@
     <DataTable
       :data="categories"
       :columns="getColumns(entity)"
+      :entity="entity"
       @updateData="fetchEntity(entity)"
     />
   </div>

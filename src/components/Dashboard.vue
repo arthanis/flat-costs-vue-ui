@@ -4,52 +4,40 @@
       Categories
     </h4>
 
-    <table v-if="categories" class="table table-bordered table-striped">
-      <thead>
-        <th>ID</th>
-        <th>Name</th>
-      </thead>
-      <tbody>
-        <tr v-for="(category, index) in categories" :key="index">
-          <td>
-            {{ category.id }}
-          </td>
-          <td>
-            {{ category.name }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <DataTable
+      :data="categories"
+      :columns="getColumns('categories')"
+      :entity="'categories'"
+      :actions="false"
+      @updateData="fetchEntity('categories')"
+    />
 
     <h4 class="mb-3">
       Costs
     </h4>
-    <table v-if="costs" class="table table-bordered table-striped">
-      <thead>
-        <th>ID</th>
-        <th>Category</th>
-        <th>Date</th>
-        <th>Value</th>
-      </thead>
-      <tbody>
-        <tr v-for="(cost, index) in costs" :key="index">
-          <td>{{ cost.id }}</td>
-          <td>{{ getCategoryNameById(cost.categoryId) }}</td>
-          <td>{{ cost.date }}</td>
-          <td>{{ cost.value }}</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <DataTable
+      :data="costs"
+      :columns="getColumns('costs')"
+      :entity="'costs'"
+      :actions="false"
+      @updateData="fetchEntity('costs')"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import API from '@/mixins/api';
+import EntitiesMixin from '@/mixins/entities';
+import DataTable from '@/components/Datatable.vue';
 
 export default {
   name: 'Dashboard',
-  mixins: [API],
+  components: {
+    DataTable,
+  },
+  mixins: [API, EntitiesMixin],
   data() {
     return {
       costs: [],
