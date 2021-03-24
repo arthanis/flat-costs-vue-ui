@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
         <div id="navbarNav" class="collapse navbar-collapse">
           <ul class="navbar-nav">

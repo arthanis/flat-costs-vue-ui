@@ -1,11 +1,20 @@
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
 // variables
 @import 'variables';
 
 // vendors
 @import 'vendors/bootstrap';
+@import 'vendors/bootstrap-icons';
 @import 'vendors/vue2-datepicker';
 
-// components
+// bootstrap components
 @import 'components/buttons';
 @import 'components/forms';
+@import 'components/navbar';
 @import 'components/table';
+
+// custom components
+@import 'components/datatable';

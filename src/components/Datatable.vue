@@ -4,16 +4,17 @@
 
     <div v-if="actions" class="d-flex justify-content-end mb-4">
       <router-link :to="{ path: `/${entity}/add` }" class="btn btn-primary">
-        Add new
+        <i class="bi-plus-square"></i>
+        <span class="btn__text">Add new</span>
       </router-link>
     </div>
 
-    <table v-if="data.length" class="table table-bordered table-striped">
+    <table v-if="data.length" class="datatable">
       <thead>
         <th
           v-for="(column, index) in columns"
           :key="index"
-          :class="`col col-${column}`">
+          :class="`col col-${column.name}`">
           {{ getColumnName(column) }}
         </th>
         <th v-if="actions" class="col col-actions">
@@ -27,7 +28,7 @@
           <td
             v-for="(column, columnIndex) in columns"
             :key="columnIndex"
-            :class="`col col-${column}`">
+            :class="`col col-${column.name}`">
             <span v-if="column?.options?.belongsTo">
               {{ getEntityItemNameById(column?.options?.belongsTo, rowData[column.name]) }}
             </span>
@@ -44,13 +45,15 @@
                 :id="`${entity}_${rowData.id}`"
                 class="btn btn-outline-primary"
                 @click="onEdit(rowData.id)">
-                Edit
+                <i class="bi-pencil"></i>
+                <span class="btn__text">Edit</span>
               </button>
               <button
                 class="btn btn-danger ms-2"
                 @click="onDelete(rowData.id)"
               >
-                Delete
+                <i class="bi-trash"></i>
+                <span class="btn__text">Delete</span>
               </button>
             </div>
           </td>
