@@ -1,7 +1,7 @@
 <template>
   <div>
     <DataTable
-      :data="costs"
+      :data="sortedCostByDesc"
       :columns="getColumns(entity)"
       :entity="entity"
       @updateData="fetchEntity(entity)"
@@ -25,6 +25,11 @@ export default {
       entity: 'costs',
       costs: [],
     };
+  },
+  computed: {
+    sortedCostByDesc() {
+      return this.costs.slice(0).reverse();
+    },
   },
   mounted() {
     this.fetchEntity(this.entity);
