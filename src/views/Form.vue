@@ -6,59 +6,61 @@
       v-if="isInitialized"
       class="row pt-5">
       <div class="col-lg-8 offset-lg-2">
-        <form
-          v-if="config.entities[entity].columns"
-          class="form"
-          @submit.prevent="onSubmit">
-          <div
-            v-for="(column, index) in config.entities[entity].columns"
-            :key="index"
-            class="mb-3">
-            <div class="row">
-              <label
-                class="col-sm-3 col-form-label"
-                :for="`${column.name}_${index}`">
-                {{ (column?.options?.belongsTo) ? column.options.belongsToName : column.name }}
-              </label>
-              <div class="col-sm-9">
-                <select
-                  v-if="column.type === 'select'"
-                  v-model="formData[column.name]"
-                  class="form-select"
-                  required>
-                  <option
-                    v-for="(option, optionIndex) in getDependentEntity(column?.options?.belongsTo)"
-                    :key="optionIndex"
-                    :value="option.id">
-                    {{ option.name }}
-                  </option>
-                </select>
-                <date-picker
-                  v-else-if="column.type === 'date'"
-                  v-model="formData[column.name]"
-                  value-type="format"
-                  input-class="form-control" />
-                <input
-                  v-else
-                  :id="`${column.name}_${index}`"
-                  v-model="formData[column.name]"
-                  :type="column.type"
-                  :placeholder="column.name"
-                  class="form-control"
-                  required>
+        <div class="form-wrapper">
+          <form
+            v-if="config.entities[entity].columns"
+            class="form"
+            @submit.prevent="onSubmit">
+            <div
+              v-for="(column, index) in config.entities[entity].columns"
+              :key="index"
+              class="mb-4">
+              <div class="row">
+                <label
+                  class="col-sm-3 col-form-label"
+                  :for="`${column.name}_${index}`">
+                  {{ (column?.options?.belongsTo) ? column.options.belongsToName : column.name }}
+                </label>
+                <div class="col-sm-9">
+                  <select
+                    v-if="column.type === 'select'"
+                    v-model="formData[column.name]"
+                    class="form-select"
+                    required>
+                    <option
+                      v-for="(option, optionIndex) in getDependentEntity(column?.options?.belongsTo)"
+                      :key="optionIndex"
+                      :value="option.id">
+                      {{ option.name }}
+                    </option>
+                  </select>
+                  <date-picker
+                    v-else-if="column.type === 'date'"
+                    v-model="formData[column.name]"
+                    value-type="format"
+                    input-class="form-control input-lg" />
+                  <input
+                    v-else
+                    :id="`${column.name}_${index}`"
+                    v-model="formData[column.name]"
+                    :type="column.type"
+                    :placeholder="column.name"
+                    class="form-control"
+                    required>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <div class="row">
-              <div class="col-sm-9 offset-sm-3">
-                <button class="btn btn-primary">
-                  {{ $route.meta.title }}
-                </button>
+            <div>
+              <div class="row">
+                <div class="col-sm-9 offset-sm-3">
+                  <button class="btn btn-primary">
+                    {{ $route.meta.title }}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>

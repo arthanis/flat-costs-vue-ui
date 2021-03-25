@@ -1,68 +1,68 @@
 .datatable {
-    $datatable-border-color: rgb(0, 0, 0, .05);
-    $datatable-border-radius: 10px;
+  $datatable-border-color: rgb(0, 0, 0, 0.05);
+  $datatable-border-radius: 10px;
 
-    @extend .table;
-    width: 100%;
-    margin-bottom: 1rem;
-    vertical-align: middle;
-    border: none;
-    border-radius: $datatable-border-radius;
-    background: #fff;
-    box-shadow: 0 0 20px 0 rgb(0, 0, 0, .08);
-    color: #3f3e41;
+  @extend .table;
+  width: 100%;
+  margin-bottom: 1rem;
+  vertical-align: middle;
+  border: none;
+  border-radius: $datatable-border-radius;
+  background: #fff;
+  box-shadow: 0 0 20px 0 rgb(0, 0, 0, 0.08);
+  color: #3f3e41;
 
-    .col {
-        padding: .75rem 1.5rem;
-        transition: background-color .3s, color .3s;
+  .col {
+    padding: 0.75rem 1.5rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  thead {
+    th,
+    td {
+      font-weight: $headings-font-weight;
+      background: #fafafa;
+
+      &,
+      &.col {
+        padding: 1rem 1.5rem;
+      }
+
+      &:first-child {
+        border-top-left-radius: $datatable-border-radius;
+      }
+
+      &:last-child {
+        border-top-right-radius: $datatable-border-radius;
+      }
     }
+  }
 
-    thead {
-        th,
+  tbody {
+    tr {
+      &:last-child {
         td {
-            font-weight: $headings-font-weight;
-            background: #fafafa;
+          border-bottom: none;
 
-            &,
-            &.col {
-                padding: 1rem 1.5rem;
-            }
+          &:first-child {
+            border-bottom-left-radius: $datatable-border-radius;
+          }
 
-            &:first-child {
-                border-top-left-radius: $datatable-border-radius;
-            }
-
-            &:last-child {
-                border-top-right-radius: $datatable-border-radius;
-            }
+          &:last-child {
+            border-bottom-right-radius: $datatable-border-radius;
+          }
         }
-    }
+      }
 
-    tbody {
-        tr {
-            &:last-child {
-                td {
-                    border-bottom: none;
-
-                    &:first-child {
-                        border-bottom-left-radius: $datatable-border-radius;
-                    }
-
-                    &:last-child {
-                        border-bottom-right-radius: $datatable-border-radius;
-                    }
-                }
-            }
-
-            &:hover {
-                .col {
-                    background: #f6f6f6;
-                }
-            }
-
-            .col {
-                border-bottom: 1px solid $datatable-border-color;
-            }
+      &:hover {
+        .col {
+          background: #f6f6f6;
         }
+      }
+
+      .col {
+        border-bottom: 1px solid $datatable-border-color;
+      }
     }
+  }
 }

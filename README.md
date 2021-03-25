@@ -6,11 +6,10 @@
 
 ## todo
 
-- alert message (success, error)
-- when update data (categories, update vuex as well)
 - add loaders
 - enhance UI (pimp!)
-
+- dynamic menu items by config
+- dashboard (with charts) to the homepage
 
 ## Project setup
 ```

@@ -1,8 +1,8 @@
 <template>
   <div>
     <DataTable
-      :data="categories"
       :columns="getColumns(entity)"
+      :data="categories"
       :entity="entity"
       @updateData="fetchEntity(entity)"
     />

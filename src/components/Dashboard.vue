@@ -5,22 +5,23 @@
     </h4>
 
     <DataTable
-      :data="categories"
       :columns="getColumns('categories')"
+      :data="categories"
       :entity="'categories'"
       :actions="false"
       @updateData="fetchEntity('categories')"
     />
 
-    <h4 class="mb-3">
+    <h4 class="mt-5 mb-3">
       Costs
     </h4>
 
     <DataTable
-      :data="costs"
-      :columns="getColumns('costs')"
-      :entity="'costs'"
       :actions="false"
+      :columns="getColumns('costs')"
+      :data="costs"
+      :entity="'costs'"
+      :order-by="'desc'"
       @updateData="fetchEntity('costs')"
     />
   </div>

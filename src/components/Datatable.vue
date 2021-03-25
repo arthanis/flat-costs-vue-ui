@@ -9,7 +9,7 @@
       </router-link>
     </div>
 
-    <table v-if="data.length" class="datatable">
+    <table v-if="orderedData.length" class="datatable">
       <thead>
         <th
           v-for="(column, index) in columns"
@@ -23,7 +23,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(rowData, rowIndex) in data"
+          v-for="(rowData, rowIndex) in orderedData"
           :key="rowIndex">
           <td
             v-for="(column, columnIndex) in columns"
@@ -99,6 +99,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    orderBy: {
+      type: String,
+      default: 'asc',
+    },
   },
   emits: ['updateData'],
   data() {
@@ -108,6 +112,13 @@ export default {
   },
   computed: {
     ...mapGetters(['config']),
+    orderedData() {
+      if (this.orderBy === 'desc') {
+        return this.data.slice().reverse();
+      }
+
+      return this.data;
+    },
   },
   mounted() {
     this.setDependentEntities();

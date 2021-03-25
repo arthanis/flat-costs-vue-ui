@@ -1,26 +1,26 @@
 .btn {
-    display: inline-flex;
-    align-items: center;
+  display: inline-flex;
+  align-items: center;
 
-    &,
-    &:focus {
-        outline: none;
-        box-shadow: none;
-    }
+  &,
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
 
-    &.btn-danger {
-        color: $white;
-    }
+  &.btn-danger {
+    color: $white;
+  }
 
-    .btn__text {
-        & + i {
-            margin-left: .5rem;
-        }
+  .btn__text {
+    & + i {
+      margin-left: 0.5rem;
     }
+  }
 
-    i {
-        & + .btn__text {
-            margin-left: .5rem;
-        }
+  i {
+    & + .btn__text {
+      margin-left: 0.5rem;
     }
+  }
 }
